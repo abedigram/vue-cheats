@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Course Goals</h1>
+    </header>
+    <section id="user-goal"><!-- the element which Vue deals with -->
+      <h1 style="color:white;">My Course Goal</h1>
+      <!-- to render html data taken from Vue -->
+      <p v-html="outputGoal()"></p>
+      <!-- to render data taken from Vue as string  -->
+      <p>{{ outputGoal() }}</p>
+      <!-- to render simple js expressions in html -->
+      <p>{{ Math.random() }}</p>
+      <!-- to user Vue data for HTML properties as href -->
+      <p>Learn more <a v-bind:href="vueLink">about Vue</a>.</p>
+    </section>
+  </body>
+</html>

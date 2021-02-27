@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vue Basics</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="styles.css" />
+		<script src="https://unpkg.com/vue@next" defer></script>
+		<script src="app.js" defer></script>
+	</head>
+	<body>
+		<header>
+			<h1>Vue Course Goals</h1>
+		</header>
+		<section id="user-goals">
+			<h2>My course goals</h2>
+			<input type="text" v-model="enteredGoalValue" />
+			<button @click="addGoal">Add Goal</button>
+			<!-- v-show
+			// display none
+			// for frequently toggling elements-->
+
+			<!-- v-if 
+			// remove element from dom 
+			// more performance cost than v-show -->
+			
+			<!-- computed fields also could be used in if condition -->
+			<p v-if="goals.length === 0">
+				No goals have been added yet - please start adding some!
+			</p>
+			<!-- use v-else or v-else-if on direct sibling elements -->
+			<ul v-else>
+				<!-- use conditions in separate element (wrapper) from loop elements -->
+				<!-- any key could be used in for (index->i) -->
+				<!-- key is needed to save list data on list change and re-renders -->
+				<li
+					v-for="(goal, index) in goals"
+					:key="goal"
+					@click="removeGoal(index)"
+				>
+					<p>{{ goal }} - {{ index }}</p>
+					<!-- use stop modifier to stop recursive event processing (click just effects on text field not entier <li>)-->
+					<input type="text" @click.stop />
+				</li>
+			</ul>
+			<!-- V-for could be used for numbers or objects -->
+			
+			<!-- <ul>
+				<li v-for="num in 10">{{ num }}</li>
+			</ul> -->
+			<!-- <ul>
+				<li v-for="(value, key, index) in {name: 'Max', age: 31}">{{ key }}: {{ value }} - {{ index }}</li>
+			</ul> -->
+		</section>
+	</body>
+</html>
+
+
