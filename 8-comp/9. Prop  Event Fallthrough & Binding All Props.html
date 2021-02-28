@@ -1,0 +1,39 @@
+<p>There are two advanced concepts you also should have heard about:</p><ul><li><p><strong>Prop Fallthrough</strong></p></li><li><p><strong>Binding All Props on a Component</strong></p></li></ul><h4>Prop Fallthrough</h4><p>You can set props (and listen to events) on a component which you haven't registered inside of that component.</p><p>For example:</p><p><strong>BaseButton.vue</strong></p><pre class="prettyprint linenums">&lt;template&gt;  
+  &lt;button&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/button&gt;
+&lt;/template&gt;
+
+&lt;script&gt;export default {}&lt;/script&gt;</pre><p>This button component (which might exist to set up a button with some default styling) <strong>has</strong> <strong>no special props</strong> that would be registered.</p><p>Yet, you can use it like this:</p><pre class="prettyprint linenums">&lt;base-button type="submit" @click="doSomething"&gt;Click me&lt;/base-button&gt;</pre><p>Neither the <code>type</code> prop nor a custom <code>click</code> event are defined or used in the <code>BaseButton</code> component.</p><p><strong>Yet, this code would work.</strong></p><p>Because Vue has built-in support for <strong>prop (and event) "fallthrough"</strong>.</p><p>Props and events added on a custom component tag <strong>automatically fall through</strong> to the <strong>root component</strong> in the template of that component. In the above example, <code>type</code> and <code>@click</code> get added to the <code>&lt;button&gt;</code> in the <code>BaseButton</code> component.</p><p>You can get access to these fallthrough props on a built-in <code>$attrs</code> property (e.g. <code>this.$attrs</code>).</p><p>This can be handy to build "utility" or pure presentational components where you don't want to define all props and events individually.</p><p><strong>You'll see this in action</strong> the component course project ("Learning Resources App") later.</p><p>You can learn more about this behavior here: <a href="https://v3.vuejs.org/guide/component-attrs.html" rel="noopener noreferrer" target="_blank">https://v3.vuejs.org/guide/component-attrs.html</a></p><h4>Binding all Props</h4><p>There is another built-in feature/ behavior related to props.</p><p>If you have this component:</p><p><strong>UserData.vue</strong></p><pre class="prettyprint linenums">&lt;template&gt;
+  &lt;h2&gt;{‌{ firstname }} {‌{ lastname }}&lt;/h2&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default {
+    props:&nbsp;['firstname', 'lastname']
+  }
+&lt;/script&gt;</pre><p>You <strong>could</strong> use it like this:</p><pre class="prettyprint linenums">&lt;template&gt;
+  &lt;user-data :firstname="person.firstname" :lastname="person.lastname"&gt;&lt;/user-data&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default {
+    data() {
+      return {
+        person:&nbsp;{ firstname:&nbsp;'Max', lastname:&nbsp;'Schwarz' }
+      };
+    }
+  }
+&lt;/script&gt;</pre><p>But if you have an object which holds the props you want to set as properties, you can also <strong>shorten the code a bit</strong>:</p><pre class="prettyprint linenums">&lt;template&gt;
+  &lt;user-data v-bind="person"&gt;&lt;/user-data&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default {
+    data() {
+      return {
+        person:&nbsp;{ firstname:&nbsp;'Max', lastname:&nbsp;'Schwarz' }
+      };
+    }
+  }
+&lt;/script&gt;</pre><p>With <code>v-bind="person"</code> you <strong>pass all key-value pairs</strong> inside of <code>person</code> <strong>as props</strong> to the component. That of course requires <code>person</code> to be a <strong>JavaScript object</strong>.</p><p>This is <strong>purely optional</strong> but it's a little convenience feature that could be helpful.</p>
