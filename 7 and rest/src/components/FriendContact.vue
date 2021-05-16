@@ -48,6 +48,7 @@ export default {
 		},
 	},
 	emits: ['toggle-favorite'],
+	// the following definition of 'emits' is just for validation of event paramters
 	// emits: {
 	// 	'toggle-favorite': function(id){
 	// 		if(id){
