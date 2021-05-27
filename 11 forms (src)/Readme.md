@@ -1,0 +1,27 @@
+### tips
+- input type="number" stores data as String (u will notice when using native $ref property)
+    - using v-model on number input, it convert automatically to number and stores
+    - use **null** to reset number inputs & '' for text inputs
+    - v-model has some modifiers written in v-modle.modifier="..."
+        - lazy: updates data later than manual mode
+        - trim: removes whitespaces around data
+        - number: converts data to number
+- input select v-model works with options' **value** property
+- checkboxes should have **value** each to work well
+    - v-model should be written with each unu-name checkbox
+    - assigned data value is set to [] when reseting
+    - value is a proxy object which data is in target part (accessed using foreach)
+    - single checkboxes return **true** if checked and flase o.w . and reset state is false
+    - default checked options are written in native html way ( chekced="checked" )
+- radio button also models the values and v-model should be written for all radios
+    - reset state should be written as string (one of radio values) or null 
+- one simple way of input validation is:
+    - trigger an event @blur (vue event) which fires after input is touched and leaved
+    - then by using validity variables and dynamic classes apply some action for validity of invalidity
+        - this method has three states of 'pending'(intitial - not touched), 'valid'(touched and valid), 'invalid'(touched but invalid)
+- buttons' default type is submit
+- to create custom form controls
+    - feel free to bind v-model on component instance but:
+        - add a **modelValue** prop which is internal v-model's prop for inputs
+        - add a **update:modelValue** emit which is internal v-model event triggered on input updates
+    - emit the event whenever custom control updates and bind modelValue to the control options (see ratingConrtol.vue)
